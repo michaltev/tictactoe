@@ -1,0 +1,21 @@
+import { Request, Response } from "express";
+
+const express = require('express');
+const gameService = require('../services/gameService');
+
+var app = express();
+app.use(express.json());
+const port = 3000; 
+
+app.get('/game/status', (req : Request, res: Response) => { gameService.getGameStatus(req, res) })
+
+app.post('/game/create', (req : Request, res: Response) => { gameService.createGame(req, res) })
+
+app.post('/game/join', (req : Request, res: Response) => { gameService.joinGame(req, res) })
+
+app.post('/game/move', (req : Request, res: Response) => { gameService.makeMove(req, res) })
+
+app.listen(port, () => 
+{
+	console.log('app is running on port '+port);
+});
