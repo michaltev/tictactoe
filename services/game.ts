@@ -1,4 +1,5 @@
 import { Player } from "./player";
+import { Statuses } from "./status";
 
 export default class Game {
     public status: string;
@@ -11,6 +12,19 @@ export default class Game {
         this.players = new Array<Player>();
         this.board = this._initBoard();
         this._boardSize = 3;
+    }
+
+    createNewGame(userID: string){
+        this.status = Statuses.WAITING;
+        this.board = this._initBoard();
+        var currPlayer = new Player(userID, "X");
+        this.players = [currPlayer];
+    }
+
+    startGame(userID: string){
+        this.status = Statuses.PLAYING;
+        var secondPlayer = new Player(userID, "O");
+        this.players.push(secondPlayer);
     }
 
     _initBoard() {
