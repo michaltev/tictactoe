@@ -4,4 +4,5 @@ export class Statuses {
     public static get TIE():string { return "the game ended with a tie"; }
     public static get X_WON():string { return "X won the last game"; }  
     public static get O_WON():string { return "O won the last game"; }   
+    public static get INITIAL():string { return "No Current Game"; }
 }
