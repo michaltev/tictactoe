@@ -5,11 +5,13 @@ export default class Game {
     public status: string;
     public players: Array<Player>;
     public board: Array<Array<string>>;
+    public currPlayer: Player;
     private _boardSize: number;
 
     constructor() {
-        this.status = "No Current Game";
+        this.status = Statuses.INITIAL;
         this.players = new Array<Player>();
+        this.currPlayer = new Player("", "");
         this.board = this._initBoard();
         this._boardSize = 3;
     }
@@ -17,8 +19,8 @@ export default class Game {
     initGame(userID: string){
         this.status = Statuses.WAITING;
         this.board = this._initBoard();
-        var currPlayer = new Player(userID, "X");
-        this.players = [currPlayer];
+        this.currPlayer = new Player(userID, "X");
+        this.players = [this.currPlayer];
     }
 
     startPlaying(userID: string){
