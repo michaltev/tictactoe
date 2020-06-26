@@ -21,7 +21,7 @@ app.post('/game/join', (req : Request, res: Response) => {
 })
 
 app.post('/game/move', (req : Request, res: Response) => { 
-    res.json(gameService.makeMove(req)); 
+    gameService.makeMove(req, res); 
 })
 
 app.listen(port, () => {
