@@ -14,14 +14,14 @@ export default class Game {
         this._boardSize = 3;
     }
 
-    createNewGame(userID: string){
+    initGame(userID: string){
         this.status = Statuses.WAITING;
         this.board = this._initBoard();
         var currPlayer = new Player(userID, "X");
         this.players = [currPlayer];
     }
 
-    startGame(userID: string){
+    startPlaying(userID: string){
         this.status = Statuses.PLAYING;
         var secondPlayer = new Player(userID, "O");
         this.players.push(secondPlayer);
