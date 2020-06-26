@@ -15,30 +15,21 @@ const createGame = (req: Request) => {
 		return _game.status;
 	}
 	else if(_game.status === Statuses.WAITING){
-		_startGame(user);
+		_game.startPlaying(user);
 	}
 	else{
-		_game.createNewGame(user);
+		_game.initGame(user);
 	}
 
 	return _game.status;
-};
-
-const joinGame = (req: Request) => {
-	return ("join a game");
 };
 
 const makeMove = (req: Request) => {
 	return ("make a move");
 };
 
-const _startGame = (userID: string) => {
-	_game.startGame(userID);
-}
-
 module.exports = {
 	getGameStatus: getGameStatus,
 	createGame: createGame,
-	joinGame: joinGame,
 	makeMove: makeMove
 }

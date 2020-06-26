@@ -17,7 +17,7 @@ app.post('/game/create', (req : Request, res: Response) => {
 })
 
 app.post('/game/join', (req : Request, res: Response) => { 
-    res.json(gameService.joinGame(req)); 
+    res.json(gameService.createGame(req)); 
 })
 
 app.post('/game/move', (req : Request, res: Response) => { 
