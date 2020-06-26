@@ -1,24 +1,24 @@
 import { Player } from "./player";
 import { Statuses } from "./status";
+import { Board } from "./board";
 
 export default class Game {
     public status: string;
     public players: Array<Player>;
-    public board: Array<Array<string>>;
+    public board: Board;
     public currPlayer: Player;
-    private _boardSize: number;
+    private _boardSize: number = 3;
 
     constructor() {
         this.status = Statuses.INITIAL;
         this.players = new Array<Player>();
         this.currPlayer = new Player("", "");
-        this.board = this._initBoard();
-        this._boardSize = 3;
+        this.board = new Board(this._boardSize);
     }
 
     initGame(userID: string){
         this.status = Statuses.WAITING;
-        this.board = this._initBoard();
+        this.board = new Board(this._boardSize);
         this.currPlayer = new Player(userID, "X");
         this.players = [this.currPlayer];
     }
@@ -28,21 +28,5 @@ export default class Game {
         var secondPlayer = new Player(userID, "O");
         this.players.push(secondPlayer);
     }
-
-    _initBoard() {
-		var matrix = [];
-
-		for (let i = 0; i < this._boardSize; i++) {
-			var row = [];
-
-			for (let k = 0; k < this._boardSize; k++) {
-				row.push("");
-			}
-
-			matrix.push(row);
-		}
-
-		return matrix;
-	}
 
 };
