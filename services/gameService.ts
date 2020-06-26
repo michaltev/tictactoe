@@ -8,20 +8,33 @@ const getGameStatus = () => {
 	return (_game.status);
 };
 
-const createGame = (req: Request) => {
+const createGame = (req: Request, res: Response) => {
 	const {user} = req.body;
 
-	if(_game.status === Statuses.PLAYING){
-		return _game.status;
-	}
-	else if(_game.status === Statuses.WAITING){
-		_game.startPlaying(user);
+	if(user){
+		if(_game.status === Statuses.PLAYING){
+			return res.status(400).json(_game.status)
+		}
+		else if(_game.status === Statuses.WAITING){
+			if(user != _game.players[0].id){
+				_game.startPlaying(user);
+			}
+			else{
+				return res.status(400).json(_game.status)
+			}
+			
+		}
+		else{
+			_game.initGame(user);
+		}
+	
+		return res.json(_game.status);
 	}
 	else{
-		_game.initGame(user);
+		return res.status(400).json("send a valid user")
 	}
 
-	return _game.status;
+	
 };
 
 const makeMove = (req: Request) => {
