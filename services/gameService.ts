@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
+import Game from './game';
+
+var _game = new Game();
 
 const getGameStatus = (req: Request, res: Response) => 
 {
-	res.json("status!");
+	res.json(_game.status);
 };
 
 const createGame = (req: Request, res: Response) => 
