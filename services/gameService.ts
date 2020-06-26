@@ -1,14 +1,27 @@
 import { Request, Response } from "express";
 import Game from './game';
+import { Statuses } from "./status";
 
 var _game = new Game();
 
-const getGameStatus = (req: Request) => {
+const getGameStatus = () => {
 	return (_game.status);
 };
 
 const createGame = (req: Request) => {
-	return ("create a game");
+	const {user} = req.body;
+
+	if(_game.status === Statuses.PLAYING){
+		return _game.status;
+	}
+	else if(_game.status === Statuses.WAITING){
+		_startGame(user);
+	}
+	else{
+		_game.createNewGame(user);
+	}
+
+	return _game.status;
 };
 
 const joinGame = (req: Request) => {
@@ -18,6 +31,10 @@ const joinGame = (req: Request) => {
 const makeMove = (req: Request) => {
 	return ("make a move");
 };
+
+const _startGame = (userID: string) => {
+	_game.startGame(userID);
+}
 
 module.exports = {
 	getGameStatus: getGameStatus,
