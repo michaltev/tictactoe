@@ -13,11 +13,11 @@ app.get('/game/status', (req : Request, res: Response) => {
 })
 
 app.post('/game/create', (req : Request, res: Response) => { 
-    res.json(gameService.createGame(req));
+    gameService.createGame(req, res);
 })
 
 app.post('/game/join', (req : Request, res: Response) => { 
-    res.json(gameService.createGame(req)); 
+    gameService.createGame(req, res); 
 })
 
 app.post('/game/move', (req : Request, res: Response) => { 
