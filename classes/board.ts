@@ -1,27 +1,9 @@
 export class Board {
     private _matrix: Array<Array<string>>;
-    private _size: number;
+    private _size: number = 3;
     
-
-    constructor(size:number) {
-        this._matrix = this._initBoard(size);
-        this._size = size;
-    }
-
-    _initBoard(boardSize: number) {
-		var matrix = [];
-
-		for (let i = 0; i < boardSize; i++) {
-			var row = [];
-
-			for (let k = 0; k < boardSize; k++) {
-				row.push("");
-			}
-
-			matrix.push(row);
-		}
-
-		return matrix;
+    constructor() {
+        this._matrix = this._initBoard(this._size);
     }
 
     checkIfBoardFull(): boolean {
@@ -41,16 +23,6 @@ export class Board {
                this._checkVerticalSequence(symbolSequence) || 
                this._checkDiagonalSequence(symbolSequence);
     }
-
-    _createSequence(symbol: string): string {
-        var sequence = "";
-
-        for(let i = 0; i < this._size; i++){
-            sequence += symbol;
-        }
-
-        return sequence;
-    }
     
 	isCellFree(x: number, y: number): boolean {
         return this._matrix[x][y] !== "X" &&
@@ -64,6 +36,32 @@ export class Board {
     
     placeSymbol(symbol: string, x: number, y: number) {
         this._matrix[x][y] = symbol;
+    }
+
+    _initBoard(boardSize: number) {
+		var matrix = [];
+
+		for (let i = 0; i < boardSize; i++) {
+			var row = [];
+
+			for (let k = 0; k < boardSize; k++) {
+				row.push("");
+			}
+
+			matrix.push(row);
+		}
+
+		return matrix;
+    }
+
+    _createSequence(symbol: string): string {
+        var sequence = "";
+
+        for(let i = 0; i < this._size; i++){
+            sequence += symbol;
+        }
+
+        return sequence;
     }
 
     _checkDiagonalSequence(symbolSequence: string): boolean {

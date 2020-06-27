@@ -7,26 +7,25 @@ export default class Game {
     public players: Array<Player>;
     public board: Board;
     public lastPlayerMoved: Player;
-    private _boardSize: number = 3;
 
     constructor() {
         this.status = Statuses.INITIAL;
         this.players = new Array<Player>();
         this.lastPlayerMoved = new Player("", "");
-        this.board = new Board(this._boardSize);
+        this.board = new Board();
     }
 
     initGame(user: string){
-        this.status = Statuses.WAITING;
-        this.board = new Board(this._boardSize);
+        this.status = Statuses.WAITING_FOR_SECOND_PLAYER;
+        this.board = new Board();
         this.lastPlayerMoved = new Player(user, "X");
         this.players = [this.lastPlayerMoved];
     }
 
     startPlaying(user: string){
         this.status = Statuses.PLAYING;
-        var secondPlayer = new Player(user, "O");
-        this.players.push(secondPlayer);
+        this.lastPlayerMoved = new Player(user, "O");
+        this.players.push(this.lastPlayerMoved);
     }
 
     isUsersTurn(user: string) {

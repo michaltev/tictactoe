@@ -14,21 +14,20 @@ export class gameService {
 		return (this._game.status);
     }
     
-    createGame(req: Request, res: Response){
+    addPlayerToGame(req: Request, res: Response){
         const {user} = req.body;
     
         if(user){
             if(this._game.status === Statuses.PLAYING){
                 return res.status(400).json(this._game.status)
             }
-            else if(this._game.status === Statuses.WAITING){
+            else if(this._game.status === Statuses.WAITING_FOR_SECOND_PLAYER){
                 if(user != this._game.players[0].id){
                     this._game.startPlaying(user);
                 }
                 else{
                     return res.status(400).json(this._game.status)
                 }
-                
             }
             else{
                 this._game.initGame(user);
@@ -39,8 +38,6 @@ export class gameService {
         else{
             return res.status(400).json(Errors.NOT_VALID_USER)
         }
-    
-        
     };
 
     makeMove(req: Request, res: Response){
