@@ -1,8 +1,11 @@
 export class Board {
-    private matrix: Array<Array<string>>;
+    private _matrix: Array<Array<string>>;
+    private _size: number;
+    
 
     constructor(size:number) {
-        this.matrix = this._initBoard(size);
+        this._matrix = this._initBoard(size);
+        this._size = size;
     }
 
     _initBoard(boardSize: number) {
@@ -22,9 +25,9 @@ export class Board {
     }
 
     checkIfBoardFull(): boolean {
-        for(let i=0; i<this.matrix.length; i++){
-            for(let j=0;j<this.matrix[0].length; j++){
-                if (this.matrix[i][j] === ""){
+        for(let i = 0; i < this._size; i++){
+            for(let j = 0; j < this._size; j++){
+                if (this._matrix[i][j] === ""){
                     return false;
                 }
             }
@@ -33,20 +36,68 @@ export class Board {
     }
 
     checkIfWon(symbol: string): boolean {
-        return false;
+        const symbolSequence = this._createSequence(symbol);
+        return this._checkHorizontalSequence(symbolSequence) ||
+               this._checkVerticalSequence(symbolSequence) || 
+               this._checkDiagonalSequence(symbolSequence);
+    }
+
+    _createSequence(symbol: string): string {
+        var sequence = "";
+
+        for(let i = 0; i < this._size; i++){
+            sequence += symbol;
+        }
+
+        return sequence;
     }
     
 	isCellFree(x: number, y: number): boolean {
-        return this.matrix[x][y] !== "X" &&
-               this.matrix[x][y] !== "O";
+        return this._matrix[x][y] !== "X" &&
+               this._matrix[x][y] !== "O";
     }
     
 	isCellValid(x: number, y: number): boolean {
-        return x >= 0 && x < this.matrix.length &&
-               y >= 0 && y < this.matrix[0].length;
+        return x >= 0 && x < this._size &&
+               y >= 0 && y < this._size;
     }
     
     placeSymbol(symbol: string, x: number, y: number) {
-        this.matrix[x][y] = symbol;
+        this._matrix[x][y] = symbol;
+    }
+
+    _checkDiagonalSequence(symbolSequence: string): boolean {
+        var diagSequences = ['', ''];
+
+        for (let i = 0; i < this._size; i++) {
+            diagSequences[0] += this._matrix[i][i];
+            diagSequences[1] += this._matrix[i][this._size - 1 - i];
+        }
+
+        return diagSequences.includes(symbolSequence);
+    }
+
+    _checkVerticalSequence(symbolSequence: string): boolean {
+        var colSequences = ['', '', ''];
+
+        for (let i = 0; i < this._size; i++) {
+            for (let j = 0; j < this._size; j++) {
+                colSequences[j] += this._matrix[i][j];
+            }
+        }
+
+        return colSequences.includes(symbolSequence);
+    }
+    
+    _checkHorizontalSequence(symbolSequence: string): boolean {
+        for (let i = 0; i < this._size; i++) {
+			const rowSequence = this._matrix[i].join('');
+
+			if (rowSequence === symbolSequence) {
+				return true;
+            }
+        }
+
+        return false;
     }
 };
