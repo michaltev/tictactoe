@@ -41,10 +41,9 @@ const createGame = (req: Request, res: Response) => {
 const makeMove = (req: Request, res: Response) => {
 	const {user, x, y} = req.body;
 
-	if(_game.isUsersTurn(user)){
+	if(_game.isUsersTurn(user) && _game.status === Statuses.PLAYING){
 		if(_game.board.isCellValid(x,y) && _game.board.isCellFree(x,y)){
 			_game.playMove(user, x, y);
-			_game.board.checkBoard();
 			return res.json(_game.status);
 		}
 		else{
@@ -54,8 +53,6 @@ const makeMove = (req: Request, res: Response) => {
 	else{
 		return res.status(400).json(Errors.NOT_THE_TURN);
 	}
-	
-	return res.json("make a move");
 };
 
 module.exports = {

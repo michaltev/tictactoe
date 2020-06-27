@@ -34,9 +34,23 @@ export default class Game {
     }
     
     playMove(user: string, x: number, y: number) {
-        // TODO: check the game has started
         this.lastPlayerMoved = this.players.filter(player => player.id === user)[0];
         this.board.placeSymbol(this.lastPlayerMoved.symbol, x, y);
+
+        if(this.board.checkIfWon(this.lastPlayerMoved.symbol)){
+            if(this.lastPlayerMoved.symbol === "X"){
+                this.status = Statuses.X_WON;
+            }
+            else{
+                this.status = Statuses.O_WON;
+            }
+        }
+        else if(this.board.checkIfTie()){
+            this.status = Statuses.TIE;
+        }
+        else{
+            this.status = Statuses.PLAYING;
+        }
 	}
 
 };
