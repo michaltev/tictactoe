@@ -2,12 +2,12 @@
 
 ## API 
 
-|               | Functions                                                          | Requset  | URL                                      |
-| ------------- | ------------------------------------------------------------------ | -------- | ---------------------------------------- |
-| :green_heart: | Get current game status                                            | Get      | localhost:3000/game/status               |
-| :green_heart: | Create a game (Request Body example: {"user":"dana"})              | Post     | localhost:3000/game/create               |
-| :green_heart: | Join a game (Request Body example: {"user":"dana"})                | Post     | localhost:3000/game/join                 |
-| :green_heart: | Make a Move (Request Body example: {"user":"dana", "x":2, "y":2})  | Post     | localhost:3000/game/move                 |
+|               | Functions                | Requset  | Request Body example            | URL                             |
+| ------------- | -------------------------| -------- | ------------------------------- | ------------------------------- |
+| :green_heart: | Get current game status  | Get      | -                               | localhost:3000/game/status      |
+| :green_heart: | Create a game            | Post     | {"user":"dana"}                 | localhost:3000/game/create      |
+| :green_heart: | Join a game              | Post     | {"user":"dana"}                 | localhost:3000/game/join        |
+| :green_heart: | Make a Move              | Post     | {"user":"dana", "x":2, "y":2}   | localhost:3000/game/move        |
 
 ## Description
 This is a TicTacToe server!
