@@ -21,16 +21,20 @@ export class Board {
 		return matrix;
     }
 
-    checkBoard() {
-		// TODO
+    checkIfTie(): boolean {
+        return false;
+    }
+
+    checkIfWon(symbol: string): boolean {
+        return false;
     }
     
-	isCellFree(x: any, y: any): boolean {
+	isCellFree(x: number, y: number): boolean {
         return this.matrix[x][y] !== "X" &&
                this.matrix[x][y] !== "O";
     }
     
-	isCellValid(x: any, y: any): boolean {
+	isCellValid(x: number, y: number): boolean {
         return x >= 0 && x < this.matrix.length &&
                y >= 0 && y < this.matrix[0].length;
     }
