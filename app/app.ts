@@ -1,27 +1,27 @@
 import { Request, Response } from "express";
+import { gameService } from "../services/gameService";
 
 const express = require('express');
-const gameService = require('../services/gameService');
-
 var app = express();
 app.use(express.json());
 const port = 3000; 
+const svGame = new gameService();
 
 app.get('/game/status', (req : Request, res: Response) => { 
-    const status = gameService.getGameStatus();
+    const status = svGame.getGameStatus();
     res.json(status); 
 })
 
 app.post('/game/create', (req : Request, res: Response) => { 
-    gameService.createGame(req, res);
+    svGame.createGame(req, res);
 })
 
 app.post('/game/join', (req : Request, res: Response) => { 
-    gameService.createGame(req, res); 
+    svGame.createGame(req, res);
 })
 
 app.post('/game/move', (req : Request, res: Response) => { 
-    gameService.makeMove(req, res); 
+    svGame.makeMove(req, res);
 })
 
 app.listen(port, () => {
