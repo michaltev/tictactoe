@@ -45,7 +45,7 @@ export default class Game {
                 this.status = Statuses.O_WON;
             }
         }
-        else if(this.board.checkIfTie()){
+        else if(this.board.checkIfBoardFull()){
             this.status = Statuses.TIE;
         }
         else{
